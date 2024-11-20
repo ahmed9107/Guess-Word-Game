@@ -1,0 +1,31 @@
+@import "_globals.scss";
+@import "_game-area.scss";
+@import "_key-colors.scss";
+
+.guess-game{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  margin: 0 auto;
+  width: 1000px;
+}
+@media (max-width: 990px) {
+  .guess-game{
+    align-items: center;
+    width: fit-content;
+    flex-direction: column;
+    text-align: center;
+  }
+}
+footer{
+  text-align: center;
+  padding: 15px;
+  position: fixed;
+  margin-top: 20px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: #ffffff;
+  background-color: #333;
+}

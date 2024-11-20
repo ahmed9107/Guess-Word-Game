@@ -1,0 +1,121 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f0f0f0;
+  font-family: Segeo UI Historic, Segeo UI, Helvetica, Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  padding: 20px;
+  margin: 0 0 30px;
+  background-color: white;
+}
+
+.game-area .inputs div {
+  margin-bottom: 10px;
+}
+.game-area .inputs div span {
+  font-weight: bold;
+  color: gray;
+  font-size: 22px;
+  margin-right: 15px;
+}
+.game-area .inputs div input {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-bottom: 3px solid black;
+  margin-right: 10px;
+  outline: none;
+  padding: 4px;
+  font-size: 24px;
+  text-align: center;
+}
+.game-area .inputs .disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+.game-area .controls {
+  margin: 20px 0;
+}
+.game-area .controls .check-word {
+  border: none;
+  background-color: brown;
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+}
+.game-area .controls .hint {
+  border: none;
+  background-color: #2aa582;
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.key-clrs .key-clr {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: white;
+  padding: 15px;
+  margin: 20px 0;
+  border: 1px solid #d3d3d3;
+  border-radius: 6px;
+}
+.key-clrs .key-clr .key {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+.key-clrs .key-clr .key.in-place {
+  background-color: #1da779;
+}
+.key-clrs .key-clr .key.not-in-place {
+  background-color: #fbaf24;
+}
+.key-clrs .key-clr .key.wrong {
+  background-color: #f93535;
+}
+.key-clrs .key-clr .key-txt {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.guess-game {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  margin: 0 auto;
+  width: 1000px;
+}
+
+@media (max-width: 990px) {
+  .guess-game {
+    align-items: center;
+    width: -moz-fit-content;
+    width: fit-content;
+    flex-direction: column;
+    text-align: center;
+  }
+}
+footer {
+  text-align: center;
+  padding: 15px;
+  position: fixed;
+  margin-top: 20px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: #ffffff;
+  background-color: #333;
+}/*# sourceMappingURL=style.css.map */

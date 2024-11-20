@@ -1,0 +1,19 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+$primary-font: Segeo UI Historic, Segeo UI, Helvetica, Arial, sans-serif;
+$primary-bg: #f0f0f0;
+
+body{
+  background-color: $primary-bg;
+  font-family: $primary-font;
+}
+h1{
+  text-align: center;
+  padding: 20px;
+  margin: 0 0 30px;
+  background-color: white;
+}
