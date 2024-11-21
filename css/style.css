@@ -43,21 +43,25 @@ h1 {
 .game-area .controls {
   margin: 20px 0;
 }
-.game-area .controls .check-word {
+.game-area .controls .check-word, .game-area .controls .hint {
   border: none;
-  background-color: brown;
   padding: 10px;
-  color: white;
   font-weight: bold;
   border-radius: 5px;
+  cursor: pointer;
+}
+.game-area .controls .check-word {
+  background-color: brown;
+  color: white;
 }
 .game-area .controls .hint {
-  border: none;
   background-color: #2aa582;
-  padding: 10px;
   color: white;
-  font-weight: bold;
-  border-radius: 5px;
+}
+.game-area button:disabled {
+  background-color: black;
+  opacity: 0.4;
+  cursor: no-drop;
 }
 
 .key-clrs .key-clr {
@@ -106,13 +110,13 @@ h1 {
     width: fit-content;
     flex-direction: column;
     text-align: center;
+    margin-bottom: 20px;
   }
 }
 footer {
   text-align: center;
   padding: 15px;
   position: fixed;
-  margin-top: 20px;
   bottom: 0;
   left: 0;
   width: 100%;

@@ -27,21 +27,25 @@
   }
   .controls{
     margin: 20px 0;
-    .check-word{
+    .check-word, .hint{
       border: none;
-      background-color: brown;
       padding: 10px;
-      color: white;
       font-weight: bold;
       border-radius: 5px;
+      cursor: pointer;
+    }
+    .check-word{
+      background-color: brown;
+      color: white;
     }
     .hint{
-      border: none;
       background-color: #2aa582;
-      padding: 10px;
       color: white;
-      font-weight: bold;
-      border-radius: 5px;
     }
+  }
+  button:disabled{
+    background-color: black;
+    opacity: 0.4;
+    cursor: no-drop;
   }
 }

@@ -8,6 +8,19 @@ let tries       = 6;
 let lettersNum  = 6;
 let currentTry  = 1;
 
+// Manage Words
+let guessWord = "";
+const words   = [
+    "table",
+    "mother",
+    "father", 
+    "terminal", 
+    "debug", 
+    "output", 
+    "problem"
+  ];
+guessWord     = words[Math.floor(Math.random() * words.length)].toLowerCase();
+
 function generateInputs(){
   const inputsContainer = document.querySelector(".inputs");
   for(i=1; i <= tries; i++){
@@ -50,6 +63,16 @@ function generateInputs(){
       };
     });
   });
+}
+let guessBtn = document.querySelector(".check-word");
+guessBtn.addEventListener("click", handleGuesses);
+function handleGuesses() {
+  let successGuess = true;
+  for (let i = 1; i <= lettersNum; i++) {
+    const inputField = document.querySelector(`#guess-${currentTry}-letter${i}`);
+    const letter     = inputField.value.toLowerCase();
+    
+  }
 }
 
 window.onload = function(){
