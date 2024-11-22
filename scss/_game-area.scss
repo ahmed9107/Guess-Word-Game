@@ -19,6 +19,21 @@
         font-size: 24px;
         text-align: center;
       }
+      .in-place{
+        background-color: #1da779;
+        color: white;
+        border-bottom: none;
+      }
+      .not-in-place{
+        background-color: #fbaf24;
+        color: white;
+        border-bottom: none;
+      }
+      .wrong{
+        background-color: #f93535;
+        color: white;
+        border-bottom: none;
+      }
     }
     .disabled{
       opacity: 0.4;
@@ -47,5 +62,23 @@
     background-color: black;
     opacity: 0.4;
     cursor: no-drop;
+  }
+  .msg{
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    color: #eeaf39;
+    margin-bottom: 20px;
+    span{
+      display: block;
+      font-weight: bold;
+      font-size: 50px;
+      color: #f93535;
+      text-transform: capitalize;
+      margin-top: 10px;
+    }
+    p{
+      margin-top: 15px;
+    }
   }
 }

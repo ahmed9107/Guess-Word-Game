@@ -20,6 +20,8 @@ const words   = [
     "problem"
   ];
 guessWord     = words[Math.floor(Math.random() * words.length)].toLowerCase();
+console.log(guessWord);
+let msgArea   = document.querySelector(".msg");
 
 function generateInputs(){
   const inputsContainer = document.querySelector(".inputs");
@@ -52,7 +54,7 @@ function generateInputs(){
     input.addEventListener( "keydown", function(event){
       //console.log(event);
       const currentIdx = Array.from(inputs).indexOf(event.target/*Or this*/);
-      console.log(currentIdx);
+      //console.log(currentIdx);
       if (event.key === "ArrowRight") {
         const nxtInput = currentIdx + 1;
         if (nxtInput < inputs.length) inputs[nxtInput].focus();
@@ -69,10 +71,25 @@ guessBtn.addEventListener("click", handleGuesses);
 function handleGuesses() {
   let successGuess = true;
   for (let i = 1; i <= lettersNum; i++) {
-    const inputField = document.querySelector(`#guess-${currentTry}-letter${i}`);
-    const letter     = inputField.value.toLowerCase();
-    
+    const inputField    = document.querySelector(`#guess-${currentTry}-letter${i}`);
+    const letter        = inputField.value.toLowerCase();
+    const actualLetter  = guessWord[i - 1];
+    if (letter === actualLetter) {
+      inputField.classList.add("in-place");
+    } else if(guessWord.includes(letter) && letter !== "") {
+      inputField.classList.add("not-in-place");
+      successGuess = false;
+    } else {
+      inputField.classList.add("wrong");
+      successGuess = false;
+    }
   }
+  if (successGuess) {
+    msgArea.innerHTML = `Congrats! the word is <span>${guessWord}</span>`;
+    let allTries      = document.querySelectorAll(".inputs > div");
+    allTries.forEach((tryDiv) => tryDiv.classList.add(".disabled"));
+    guessBtn.disabled =true;
+  } else {}
 }
 
 window.onload = function(){

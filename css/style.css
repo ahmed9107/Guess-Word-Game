@@ -36,6 +36,21 @@ h1 {
   font-size: 24px;
   text-align: center;
 }
+.game-area .inputs div .in-place {
+  background-color: #1da779;
+  color: white;
+  border-bottom: none;
+}
+.game-area .inputs div .not-in-place {
+  background-color: #fbaf24;
+  color: white;
+  border-bottom: none;
+}
+.game-area .inputs div .wrong {
+  background-color: #f93535;
+  color: white;
+  border-bottom: none;
+}
 .game-area .inputs .disabled {
   opacity: 0.4;
   pointer-events: none;
@@ -62,6 +77,24 @@ h1 {
   background-color: black;
   opacity: 0.4;
   cursor: no-drop;
+}
+.game-area .msg {
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+  color: #eeaf39;
+  margin-bottom: 20px;
+}
+.game-area .msg span {
+  display: block;
+  font-weight: bold;
+  font-size: 50px;
+  color: #f93535;
+  text-transform: capitalize;
+  margin-top: 10px;
+}
+.game-area .msg p {
+  margin-top: 15px;
 }
 
 .key-clrs .key-clr {
@@ -98,9 +131,11 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  width: 100%;
   padding: 20px;
   margin: 0 auto;
   width: 1000px;
+  position: relative;
 }
 
 @media (max-width: 990px) {

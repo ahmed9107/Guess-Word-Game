@@ -6,9 +6,11 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  width: 100%;
   padding: 20px;
   margin: 0 auto;
   width: 1000px;
+  position: relative;
 }
 @media (max-width: 990px) {
   .guess-game{
