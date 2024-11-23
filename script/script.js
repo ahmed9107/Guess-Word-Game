@@ -87,9 +87,26 @@ function handleGuesses() {
   if (successGuess) {
     msgArea.innerHTML = `Congrats! the word is <span>${guessWord}</span>`;
     let allTries      = document.querySelectorAll(".inputs > div");
-    allTries.forEach((tryDiv) => tryDiv.classList.add(".disabled"));
+    allTries.forEach((tryDiv) => tryDiv.classList.add("disabled"));
     guessBtn.disabled =true;
-  } else {}
+  } else {
+    msgArea.innerHTML = `Try again!`;
+    document.querySelector(`.try-${currentTry}`).classList.add("disabled");
+    const currentTryInputs = document.querySelectorAll(`.try-${currentTry} input`);
+    currentTryInputs.forEach((input) => input.disabled = true);
+    currentTry ++;
+    
+    const nxtTryInputs = document.querySelectorAll(`.try-${currentTry} input`);
+    nxtTryInputs.forEach((input) => input.disabled = false);
+    let ele = document.querySelector(`.try-${currentTry}`);
+    if (ele) {
+      ele.classList.remove("disabled");
+      ele.children[1].focus();
+    } else {
+      msgArea.innerHTML = `Game Over!`;
+      guessBtn.disabled =true;
+    }
+  }
 }
 
 window.onload = function(){
