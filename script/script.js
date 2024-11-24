@@ -7,6 +7,7 @@ document.querySelector('footer').innerHTML = "Created by Yazami";
 let tries       = 6;
 let lettersNum  = 6;
 let currentTry  = 1;
+let numHint     = 2;
 
 // Manage Words
 let guessWord = "";
@@ -22,6 +23,11 @@ const words   = [
 guessWord     = words[Math.floor(Math.random() * words.length)].toLowerCase();
 console.log(guessWord);
 let msgArea   = document.querySelector(".msg");
+
+// Manage hints
+document.querySelector(".hint span").innerHTML = numHint;
+const hintBtn = document.querySelector(".hint");
+hintBtn.addEventListener("click", getHint);
 
 function generateInputs(){
   const inputsContainer = document.querySelector(".inputs");
@@ -47,22 +53,22 @@ function generateInputs(){
   const inputs = document.querySelectorAll("input");
   inputs.forEach((input, index) => {
     input.addEventListener( "input", function(){
-      this.value =this.value.toUpperCase();
+      this.value = this.value.toUpperCase();
       const nxtInput = inputs[index + 1];
       if (nxtInput) nxtInput.focus();
     });
     input.addEventListener( "keydown", function(event){
-      //console.log(event);
+      // console.log(event);
       const currentIdx = Array.from(inputs).indexOf(event.target/*Or this*/);
       //console.log(currentIdx);
       if (event.key === "ArrowRight") {
         const nxtInput = currentIdx + 1;
         if (nxtInput < inputs.length) inputs[nxtInput].focus();
-      };
+      }
       if (event.key === "ArrowLeft") {
         const previousInput = currentIdx - 1;
         if (previousInput >= 0) inputs[previousInput].focus();
-      };
+      }
     });
   });
 }
@@ -88,7 +94,8 @@ function handleGuesses() {
     msgArea.innerHTML = `Congrats! the word is <span>${guessWord}</span>`;
     let allTries      = document.querySelectorAll(".inputs > div");
     allTries.forEach((tryDiv) => tryDiv.classList.add("disabled"));
-    guessBtn.disabled =true;
+    guessBtn.disabled = true;
+    hintBtn.disabled  = true;
   } else {
     msgArea.innerHTML = `Try again!`;
     document.querySelector(`.try-${currentTry}`).classList.add("disabled");
@@ -104,10 +111,51 @@ function handleGuesses() {
       ele.children[1].focus();
     } else {
       msgArea.innerHTML = `Game Over!`;
-      guessBtn.disabled =true;
+      guessBtn.disabled = true;
+      hintBtn.disabled  = true;
     }
   }
 }
+
+function getHint() {
+  if (numHint > 0) {
+    numHint--;
+    document.querySelector(".hint span").innerHTML = numHint;
+  }
+  if (numHint == 0) {
+    hintBtn.disabled = true;
+  }
+
+  const enableInputs = document.querySelectorAll("input:not([disabled])");
+  // console.log(enableInputs)
+  const emptyEnableInputs = Array.from(enableInputs).filter((input) => input.value === "");
+  // console.log(emptyEnableInputs);
+  if (emptyEnableInputs.length > 0) {
+    const randomIndx  = Math.floor(Math.random() * emptyEnableInputs.length);
+    const randomInput = emptyEnableInputs[randomIndx];
+    const indexToFill = Array.from(enableInputs).indexOf(randomInput);
+    if (randomIndx !== -1) {
+      randomInput.value = guessWord[indexToFill].toUpperCase();
+    }
+  }
+}
+
+// Handle back spaces
+function handleBackspace(event) {
+  if (event.key === "Backspace") {
+    const inputs      = document.querySelectorAll("input:not([disabled])");
+    const currentIdx  =  Array.from(inputs).indexOf(document.activeElement);
+    // console.log(currentIdx)
+    if (currentIdx > 0) {
+      const currentInput  = inputs[currentIdx];
+      const prevInput     = inputs[currentIdx - 1];
+      currentInput.value  = "";
+      prevInput.value  = "";
+      prevInput.focus();
+    }
+  }
+}
+document.addEventListener("keydown", handleBackspace);
 
 window.onload = function(){
   generateInputs();
