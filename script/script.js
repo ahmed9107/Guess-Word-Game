@@ -5,7 +5,7 @@ document.querySelector('footer').innerHTML = "Created by Yazami";
 
 // Game Options
 let tries       = 6;
-let lettersNum  = 6;
+// let lettersNum  = 6;
 let currentTry  = 1;
 let numHint     = 2;
 
@@ -13,12 +13,13 @@ let numHint     = 2;
 let guessWord = "";
 const words   = [
     "table",
-    "mother",
-    "father", 
+    "turkey",
+    "chicken", 
     "terminal", 
-    "debug", 
-    "output", 
-    "problem"
+    "wolf",
+    "gotham",
+    "space", 
+    "batman"
   ];
 guessWord     = words[Math.floor(Math.random() * words.length)].toLowerCase();
 console.log(guessWord);
@@ -31,12 +32,12 @@ hintBtn.addEventListener("click", getHint);
 
 function generateInputs(){
   const inputsContainer = document.querySelector(".inputs");
-  for(i=1; i <= tries; i++){
+  for(let i = 1; i <= tries; i++){
     const tryDiv = document.createElement('div');
     tryDiv.classList.add(`try-${i}`);
     tryDiv.innerHTML = `<span>Try ${i}</span>`;
     if (i !== 1) tryDiv.classList.add("disabled");
-    for (let j = 1; j <= lettersNum; j++) {
+    for (let j = 1; j <= guessWord.length; j++) {
       const input     = document.createElement("input");
       input.type      = "text";
       input.id        = `guess-${i}-letter${j}`;
@@ -74,47 +75,65 @@ function generateInputs(){
 }
 let guessBtn = document.querySelector(".check-word");
 guessBtn.addEventListener("click", handleGuesses);
+
 function handleGuesses() {
   let successGuess = true;
-  for (let i = 1; i <= lettersNum; i++) {
+  for (let i = 1; i <= guessWord.length; i++) {
     const inputField    = document.querySelector(`#guess-${currentTry}-letter${i}`);
     const letter        = inputField.value.toLowerCase();
     const actualLetter  = guessWord[i - 1];
-    if (letter === actualLetter) {
-      inputField.classList.add("in-place");
-    } else if(guessWord.includes(letter) && letter !== "") {
-      inputField.classList.add("not-in-place");
-      successGuess = false;
-    } else {
-      inputField.classList.add("wrong");
-      successGuess = false;
-    }
+    const isCorrect     = processLetter(inputField, letter, actualLetter, guessWord);
+    if(!isCorrect) successGuess = false;
   }
   if (successGuess) {
-    msgArea.innerHTML = `Congrats! the word is <span>${guessWord}</span>`;
-    let allTries      = document.querySelectorAll(".inputs > div");
-    allTries.forEach((tryDiv) => tryDiv.classList.add("disabled"));
-    guessBtn.disabled = true;
-    hintBtn.disabled  = true;
+    handleGameSuccess(guessWord);
   } else {
-    msgArea.innerHTML = `Try again!`;
-    document.querySelector(`.try-${currentTry}`).classList.add("disabled");
-    const currentTryInputs = document.querySelectorAll(`.try-${currentTry} input`);
-    currentTryInputs.forEach((input) => input.disabled = true);
-    currentTry ++;
-    
-    const nxtTryInputs = document.querySelectorAll(`.try-${currentTry} input`);
-    nxtTryInputs.forEach((input) => input.disabled = false);
-    let ele = document.querySelector(`.try-${currentTry}`);
-    if (ele) {
-      ele.classList.remove("disabled");
-      ele.children[1].focus();
-    } else {
-      msgArea.innerHTML = `Game Over!`;
-      guessBtn.disabled = true;
-      hintBtn.disabled  = true;
-    }
+    hundleGameFail();
   }
+}
+
+function processLetter(inputField, letter, actualLetter, guessWord){
+  if (letter === actualLetter) {
+    inputField.classList.add("in-place");
+    return true;
+  } else if(guessWord.includes(letter) && letter !== "") {
+    inputField.classList.add("not-in-place");
+    return false;
+  } else {
+    inputField.classList.add("wrong");
+    return false;
+  }
+}
+
+function handleGameSuccess(guessWord) {
+  msgArea.innerHTML = `Congrats! the word is <span>${guessWord}</span>`;
+  let allTries      = document.querySelectorAll(".inputs > div");
+  allTries.forEach((tryDiv) => tryDiv.classList.add("disabled"));
+  guessBtn.disabled = true;
+  hintBtn.disabled  = true;
+}
+
+function hundleGameFail() {
+  msgArea.innerHTML = `Try again!`;
+  document.querySelector(`.try-${currentTry}`).classList.add("disabled");
+  const currentTryInputs = document.querySelectorAll(`.try-${currentTry} input`);
+  currentTryInputs.forEach((input) => input.disabled = true);
+  currentTry ++;
+  const nxtTryInputs = document.querySelectorAll(`.try-${currentTry} input`);
+  nxtTryInputs.forEach((input) => input.disabled = false);
+  let ele = document.querySelector(`.try-${currentTry}`);
+  if (ele) {
+    ele.classList.remove("disabled");
+    ele.children[1].focus();
+  } else {
+    handleGameOver();
+  }
+}
+
+function handleGameOver() {
+  msgArea.innerHTML = `Game Over!`;
+  guessBtn.disabled = true;
+  hintBtn.disabled  = true;
 }
 
 function getHint() {
